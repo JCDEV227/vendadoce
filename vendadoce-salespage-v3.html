@@ -1,0 +1,455 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>VendaDoce — Recebe encomendas todos os dias</title>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,400;0,600;0,700;0,900;1,900&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link rel="icon" type="image/png" href="./icon.jpg">
+<style>
+:root {
+  --rosa: #d63b6e;
+  --rosa-claro: #FFF0F4;
+  --escuro: #0d0d0d;
+  --cinza: #666666;
+  --cinza-claro: #f5f5f5;
+  --branco: #ffffff;
+}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body { font-family: 'Poppins', sans-serif; background: var(--branco); color: var(--escuro); overflow-x: hidden; }
+.container { max-width: 1100px; margin: 0 auto; padding: 0 40px; }
+
+/* HERO LOGO */
+.logo { font-family: 'Montserrat', sans-serif; font-weight: 900; font-size: 22px; letter-spacing: -0.5px; color: var(--branco); }
+.logo span { color: var(--rosa); }
+.hero-logo { display: block; padding: 48px 0 0; position: relative; z-index: 2; }
+
+/* HERO */
+.hero {
+  padding-top: 0;
+  background: var(--escuro);
+  min-height: 100vh;
+  display: flex; align-items: flex-start;
+  position: relative; overflow: hidden;
+}
+.hero-wrap { width: 100%; position: relative; z-index: 2; }
+.hero::before {
+  content: '';
+  position: absolute; top: -200px; right: -200px;
+  width: 700px; height: 700px;
+  background: radial-gradient(circle, rgba(214,59,110,0.18) 0%, transparent 70%);
+  pointer-events: none;
+}
+.hero::after {
+  content: '';
+  position: absolute; bottom: -100px; left: -100px;
+  width: 500px; height: 500px;
+  background: radial-gradient(circle, rgba(214,59,110,0.08) 0%, transparent 70%);
+  pointer-events: none;
+}
+.hero-inner {
+  display: grid;
+  grid-template-columns: 1fr 400px;
+  gap: 80px; align-items: center;
+  padding: 60px 0 100px;
+  position: relative; z-index: 2;
+}
+.hero-text h1 {
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 900; font-size: 52px;
+  line-height: 1.05; letter-spacing: -2px;
+  color: var(--branco); margin-bottom: 24px;
+}
+.hero-text h1 em { font-style: italic; color: var(--rosa); }
+.hero-text .subtitulo {
+  font-size: 17px; font-weight: 400;
+  color: rgba(255,255,255,0.6);
+  margin-bottom: 44px; line-height: 1.7; max-width: 520px;
+}
+.hero-cta {
+  display: inline-flex; align-items: center; gap: 10px;
+  background: var(--rosa); color: var(--branco);
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 900; font-size: 13px;
+  letter-spacing: 1px; text-transform: uppercase;
+  padding: 20px 36px; border-radius: 100px;
+  text-decoration: none;
+  box-shadow: 0 8px 32px rgba(214,59,110,0.4);
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+.hero-cta:hover { transform: translateY(-2px); box-shadow: 0 12px 40px rgba(214,59,110,0.5); }
+.hero-cta-arrow { font-size: 18px; }
+
+.hero-cta-branco {
+  display: inline-flex; align-items: center; gap: 10px;
+  background: var(--branco); color: var(--rosa);
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 900; font-size: 13px;
+  letter-spacing: 1px; text-transform: uppercase;
+  padding: 20px 36px; border-radius: 100px;
+  text-decoration: none;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.15);
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+.hero-cta-branco:hover { transform: translateY(-2px); }
+
+.hero-card {
+  background: rgba(255,255,255,0.05);
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 24px; padding: 48px 40px;
+  backdrop-filter: blur(10px);
+}
+.hero-stat { margin-bottom: 32px; padding-bottom: 32px; border-bottom: 1px solid rgba(255,255,255,0.08); }
+.hero-stat:last-child { margin-bottom: 0; padding-bottom: 0; border-bottom: none; }
+.hero-stat-num {
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 900; font-size: 56px;
+  color: var(--rosa); line-height: 1; letter-spacing: -2px; margin-bottom: 6px;
+}
+.hero-stat-label { font-size: 14px; color: rgba(255,255,255,0.6); line-height: 1.5; }
+.hero-stat-label strong { color: var(--branco); font-weight: 600; }
+
+/* CENÁRIO */
+.cenario { padding: 120px 0; background: var(--branco); }
+.cenario-grid {
+  display: grid; grid-template-columns: 1fr 1px 1fr;
+  align-items: start;
+}
+.cenario-divider-line { background: rgba(0,0,0,0.08); }
+.cenario-col { padding: 0 56px; }
+.cenario-titulo {
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 900; font-size: 28px;
+  line-height: 1.2; letter-spacing: -0.5px;
+  color: var(--escuro); margin-bottom: 32px;
+}
+.depois-titulo { color: var(--rosa); }
+.cenario-item {
+  display: flex; align-items: flex-start; gap: 14px;
+  padding: 16px 0; border-bottom: 1px solid rgba(0,0,0,0.05);
+}
+.cenario-item:last-child { border-bottom: none; }
+.cenario-ic {
+  width: 28px; height: 28px; border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 12px; flex-shrink: 0; margin-top: 2px; font-weight: 700;
+}
+.col-antes .cenario-ic { background: #f5f5f5; color: #aaa; }
+.col-depois .cenario-ic { background: rgba(214,59,110,0.1); color: var(--rosa); }
+.cenario-item p { font-size: 15px; line-height: 1.65; }
+.col-antes .cenario-item p { color: #888; }
+.col-depois .cenario-item p { color: var(--escuro); }
+
+/* MÉTODO — fundo rosa claro */
+.metodo { padding: 120px 0; background: var(--rosa-claro); }
+.metodo-head { margin-bottom: 80px; }
+.metodo-head h2 {
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 900; font-size: 44px;
+  line-height: 1.05; letter-spacing: -1.5px;
+  color: var(--escuro); margin-bottom: 16px;
+}
+.metodo-head h2 em { font-style: italic; color: var(--rosa); }
+.metodo-head p { font-size: 16px; color: var(--cinza); line-height: 1.7; max-width: 560px; }
+.metodo-steps { display: flex; flex-direction: column; }
+.metodo-step {
+  display: grid; grid-template-columns: 100px 1fr;
+  gap: 48px; padding: 56px 0;
+  border-top: 1px solid rgba(214,59,110,0.2);
+  align-items: start;
+}
+.metodo-step:last-child { border-bottom: 1px solid rgba(214,59,110,0.2); }
+.step-num {
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 900; font-size: 80px;
+  line-height: 1; color: rgba(214,59,110,0.2); letter-spacing: -3px;
+}
+.step-content h3 {
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 900; font-size: 26px;
+  color: var(--escuro); margin-bottom: 14px;
+}
+.step-content h3 em { font-style: italic; color: var(--rosa); }
+.step-content p { font-size: 15px; color: var(--cinza); line-height: 1.8; max-width: 600px; }
+
+/* SERVIÇOS */
+.servicos { padding: 120px 0; background: var(--branco); }
+.servicos-head { margin-bottom: 64px; }
+.servicos-head h2 {
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 900; font-size: 44px;
+  line-height: 1.1; letter-spacing: -1px; color: var(--escuro);
+}
+.servicos-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+.servico-card {
+  background: var(--rosa-claro);
+  border-radius: 20px; padding: 40px 36px;
+  transition: transform 0.2s, box-shadow 0.2s;
+  border: 1px solid transparent;
+}
+.servico-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 16px 48px rgba(214,59,110,0.1);
+  border-color: rgba(214,59,110,0.2);
+}
+.servico-ic { font-size: 28px; margin-bottom: 20px; display: block; }
+.servico-card h3 {
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 900; font-size: 17px;
+  color: var(--escuro); margin-bottom: 12px; line-height: 1.3;
+}
+.servico-card p { font-size: 14px; color: var(--cinza); line-height: 1.8; }
+
+/* DEPOIMENTOS */
+.depoimentos { padding: 120px 0; background: var(--cinza-claro); }
+.depoimentos-head { margin-bottom: 56px; }
+.depoimentos-head h2 {
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 900; font-size: 44px;
+  letter-spacing: -1.5px; color: var(--escuro); margin-bottom: 12px;
+}
+.depoimentos-head p { font-size: 16px; color: var(--cinza); }
+.depoimentos-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; }
+.depoimento-slot {
+  max-width: 360px; margin: 0 auto;
+  background: #e8e8e8; border-radius: 16px;
+  aspect-ratio: 4/5;
+  display: flex; align-items: center; justify-content: center;
+  border: 2px dashed #ccc;
+}
+.depoimento-slot span {
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 700; font-size: 11px;
+  letter-spacing: 2px; text-transform: uppercase; color: #bbb;
+}
+
+/* CTA FINAL */
+.cta-section {
+  background: var(--rosa); padding: 120px 0;
+  position: relative; overflow: hidden;
+}
+.cta-section::before {
+  content: '';
+  position: absolute; top: -150px; right: -150px;
+  width: 500px; height: 500px;
+  background: rgba(255,255,255,0.06);
+  border-radius: 50%; pointer-events: none;
+}
+.cta-center {
+  text-align: center; max-width: 640px;
+  margin: 0 auto; position: relative; z-index: 2;
+}
+.cta-center h2 {
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 900; font-size: 48px;
+  line-height: 1.05; letter-spacing: -1.5px;
+  color: var(--branco); margin-bottom: 20px;
+}
+.cta-center p { font-size: 17px; color: rgba(255,255,255,0.85); line-height: 1.7; margin-bottom: 40px; }
+
+footer { background: var(--escuro); padding: 56px 0; text-align: center; }
+footer .logo { margin-bottom: 12px; color: var(--branco); display: inline-block; }
+footer p { font-size: 13px; color: rgba(255,255,255,0.25); margin-top: 6px; }
+
+/* MOBILE */
+@media (max-width: 768px) {
+  .container { padding: 0 20px; }
+  nav { padding: 20px; }
+  .logo { color: var(--branco); }
+  .hero-inner { grid-template-columns: 1fr; gap: 48px; padding: 100px 0 56px; }
+  .hero-text h1 { font-size: 36px; letter-spacing: -1.5px; }
+  .hero-text .subtitulo { font-size: 15px; margin-bottom: 32px; }
+  .hero-cta, .hero-cta-branco { width: 100%; justify-content: center; font-size: 12px; }
+  .hero-card { padding: 32px 28px; }
+  .hero-stat-num { font-size: 44px; }
+  .cenario { padding: 72px 0; }
+  .cenario-grid { grid-template-columns: 1fr; }
+  .cenario-divider-line { display: none; }
+  .cenario-col { padding: 0; }
+  .col-depois { margin-top: 48px; }
+  .metodo { padding: 72px 0; }
+  .metodo-head h2 { font-size: 30px; }
+  .metodo-step { grid-template-columns: 1fr; gap: 8px; padding: 40px 0; }
+  .step-num { font-size: 56px; }
+  .step-content h3 { font-size: 22px; }
+  .servicos { padding: 72px 0; }
+  .servicos-head h2 { font-size: 30px; }
+  .servicos-grid { grid-template-columns: 1fr; gap: 16px; }
+  .depoimentos { padding: 72px 0; }
+  .depoimentos-head h2 { font-size: 30px; }
+  .depoimentos-grid { grid-template-columns: 1fr; }
+  .cta-section { padding: 72px 0; }
+  .cta-center h2 { font-size: 32px; }
+}
+</style>
+</head>
+<body>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="container hero-wrap">
+    <div class="logo hero-logo">Venda<span>Doce</span></div>
+    <div class="hero-inner">
+      <div class="hero-text">
+        <h1>Recebe novas encomendas todos os dias na tua <em>confeitaria,</em> sem depender de indicações ou datas comemorativas.</h1>
+        <p class="subtitulo">Construímos todo o sistema de marketing que mantém a agenda da tua confeitaria cheia de encomendas — todos os meses do ano.</p>
+        <a href="#contacto" class="hero-cta">Quero vender todos os dias <span class="hero-cta-arrow">→</span></a>
+      </div>
+      <div class="hero-card">
+        <div class="hero-stat">
+          <div class="hero-stat-num">+10</div>
+          <div class="hero-stat-label"><strong>confeiteiras</strong> com agenda cheia usando o método VendaDoce</div>
+        </div>
+        <div class="hero-stat">
+          <div class="hero-stat-num">3×</div>
+          <div class="hero-stat-label"><strong>mais encomendas</strong> em média nos primeiros 30 dias</div>
+        </div>
+        <div class="hero-stat">
+          <div class="hero-stat-num">7d</div>
+          <div class="hero-stat-label"><strong>para os primeiros resultados</strong> após início da parceria</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CENÁRIO -->
+<section class="cenario">
+  <div class="container">
+    <div class="cenario-grid">
+      <div class="cenario-col col-antes">
+        <h2 class="cenario-titulo">O teu cenário actual</h2>
+        <div class="cenario-item"><div class="cenario-ic">✕</div><p>Dependes de indicações e boca-a-boca. Quando param, as encomendas param.</p></div>
+        <div class="cenario-item"><div class="cenario-ic">✕</div><p>Fazes promoções que destroem a margem só para conseguir aparecer.</p></div>
+        <div class="cenario-item"><div class="cenario-ic">✕</div><p>Já investiste em tráfego pago, recebeste mensagens, mas ninguém comprou.</p></div>
+        <div class="cenario-item"><div class="cenario-ic">✕</div><p>No Natal e no Dia das Mães tens agenda cheia, mas em Janeiro não sabes quando entra a próxima encomenda.</p></div>
+        <div class="cenario-item"><div class="cenario-ic">✕</div><p>Recebes 2 a 4 encomendas por mês — faturamento baixo e nem sabes ao certo quanto ganhas.</p></div>
+      </div>
+      <div class="cenario-divider-line"></div>
+      <div class="cenario-col col-depois">
+        <h2 class="cenario-titulo depois-titulo">O que vais conquistar com a VendaDoce</h2>
+        <div class="cenario-item"><div class="cenario-ic">✓</div><p>Encomendas diariamente pelo Instagram e WhatsApp, sem dependeres de indicação de ninguém.</p></div>
+        <div class="cenario-item"><div class="cenario-ic">✓</div><p>Sabes exactamente quanto ganhas e de onde vem cada cliente.</p></div>
+        <div class="cenario-item"><div class="cenario-ic">✓</div><p>Vendas mais vezes para as mesmas clientes — com estratégias de fidelização que as fazem voltar.</p></div>
+        <div class="cenario-item"><div class="cenario-ic">✓</div><p>Aumentas o faturamento da tua confeitaria e cobras o preço justo pelo teu trabalho.</p></div>
+        <div class="cenario-item"><div class="cenario-ic">✓</div><p>Recebes relatório semanal com os resultados em linguagem simples. Tu ficas na cozinha a produzir. Nós cuidamos de todo o marketing.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- MÉTODO -->
+<section class="metodo">
+  <div class="container">
+    <div class="metodo-head">
+      <h2>O método VendaDoce<br><em>garante dinheiro no teu bolso!</em></h2>
+      <p>Com 3 pilares focados em vender mais, o nosso método já foi comprovado por mais de 10 confeiteiras.</p>
+    </div>
+    <div class="metodo-steps">
+      <div class="metodo-step">
+        <div class="step-num">01</div>
+        <div class="step-content">
+          <h3><em>Criativos Atractivos</em></h3>
+          <p>Estruturamos criativos atractivos para gerar aquisição de novas clientes. Com ofertas validadas, script de vídeos que geram desejo antes de qualquer conversa sobre preço.</p>
+        </div>
+      </div>
+      <div class="metodo-step">
+        <div class="step-num">02</div>
+        <div class="step-content">
+          <h3><em>Gestão & Conversão</em></h3>
+          <p>Gerenciamento de campanhas de anúncio e optimização para aumentar a conversão. Fornecemos um script de atendimento testado para que nenhuma conversa fique sem resposta e nenhuma cliente saia sem encomendar.</p>
+        </div>
+      </div>
+      <div class="metodo-step">
+        <div class="step-num">03</div>
+        <div class="step-content">
+          <h3><em>Ofertas Impactantes</em></h3>
+          <p>Criação de ofertas impactantes para impactar a cliente certa na hora certa. Remarketing para quem já visitou o perfil, mensagens de reactivação no WhatsApp, ofertas exclusivas para quem já comprou. A cliente que volta aumenta o lucro.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SERVIÇOS -->
+<section class="servicos">
+  <div class="container">
+    <div class="servicos-head">
+      <h2>Tudo o que a tua confeitaria<br>precisa num só lugar.</h2>
+    </div>
+    <div class="servicos-grid">
+      <div class="servico-card">
+        <span class="servico-ic">💬</span>
+        <h3>Soluções Comerciais</h3>
+        <p>Scripts de venda, processos e ferramentas prontos para aumentar as tuas encomendas. Treinamos o teu atendimento para vender mais no WhatsApp.</p>
+      </div>
+      <div class="servico-card">
+        <span class="servico-ic">🎥</span>
+        <h3>Criativos e Vídeos</h3>
+        <p>Vídeos 100% focados em gerar mais encomendas. Com ofertas já testadas e validadas no mercado. Feitos por profissionais qualificados, de alto nível e performance.</p>
+      </div>
+      <div class="servico-card">
+        <span class="servico-ic">📊</span>
+        <h3>Relatórios e Acompanhamento</h3>
+        <p>Monitorizamos os indicadores mais importantes da tua confeitaria e entregamos análises semanais para tomada de decisão rápida. Controlo total da tua performance com reuniões semanais de alinhamento.</p>
+      </div>
+      <div class="servico-card">
+        <span class="servico-ic">🎯</span>
+        <h3>Ofertas Estratégicas</h3>
+        <p>Estruturamos todo o teu menu, desde o nome dos produtos até aos preços. Aumentamos o teu ticket médio para maior margem de lucro, utilizando estratégias de precificação validada. Maior conversão através de hierarquia visual e campanhas sazonais.</p>
+      </div>
+      <div class="servico-card">
+        <span class="servico-ic">📣</span>
+        <h3>Funil de Vendas com Anúncios</h3>
+        <p>Gestão dos teus anúncios no Instagram e Facebook ligados a um funil de conversão. Impactamos o teu público ideal com anúncios feitos para quem quer encomendar. Transformamos desconhecidas em clientes fiéis com tráfego direccionado e estratégia definida.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- DEPOIMENTOS -->
+<section class="depoimentos" id="contacto">
+  <div class="container">
+    <div class="depoimentos-head">
+      <h2>Os nossos resultados falam por nós</h2>
+      <p>Temos fome e sede de vender.</p>
+    </div>
+    <div class="depoimentos-grid">
+      <div class="depoimento-slot">
+        <img src="DP 1.jpeg" alt="Depoimento 1" style="border-radius: 10px; width: 100%; height: 100%; margin: 40px;">
+      </div>
+      <div class="depoimento-slot">
+        <img src="DP 2.jpeg" alt="Depoimento 1" style="border-radius: 10px; width: 100%; height: 100%; margin: 40px;">
+      </div>
+      <div class="depoimento-slot">
+        <img src="DP 3.jpeg" alt="Depoimento 1" style="border-radius: 10px; width: 100%; height: 100%; margin: 40px;">
+      </div>
+       <div class="depoimento-slot">
+        <img src="DP 4.jpeg" alt="Depoimento 1" style="border-radius: 10px; width: 100%; height: 100%; margin: 40px;">
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA FINAL -->
+<section class="cta-section">
+  <div class="container">
+    <div class="cta-center">
+      <h2>Pronta para ter encomendas todos os dias?</h2>
+      <p>Faz o teu diagnóstico gratuito. Analisamos o teu negócio e mostramos exactamente o que está a travar as tuas encomendas.</p>
+      <a href="https://wa.link/23t5dh" class="hero-cta-branco" target="_blank" rel="noopener noreferrer">Quero o Meu Diagnóstico Gratuito <span class="hero-cta-arrow">→</span></a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="container">
+    <div class="logo">Venda<span>Doce</span></div>
+    <p>O sistema de marketing para confeiteiras que querem encomendas todos os dias.</p>
+    <p>© 2025 VendaDoce. Todos os direitos reservados.</p>
+  </div>
+</footer>
+
+</body>
+</html>
